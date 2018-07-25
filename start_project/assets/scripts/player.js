@@ -1,18 +1,5 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
-
 cc.Class({
     extends: cc.Component,
-   
-
 
     properties: {
         // 主角跳跃高度
@@ -28,27 +15,6 @@ cc.Class({
             default: null,
             url: cc.AudioClip
         },
-    },
-
-    // LIFE-CYCLE CALLBACKS:
-
-    onLoad: function () {
-        // 初始化跳跃动作
-        this.jumpAction = this.setJumpAction();
-        this.node.runAction(this.jumpAction);
-
-        // 加速度方向开关
-        this.accLeft = false;
-        this.accRight = false;
-        // 主角当前水平方向速度
-        this.xSpeed = 0;
-
-        // 初始化键盘输入监听
-        this.setInputControl();
-    },
-
-    start () {
-
     },
 
     setJumpAction: function () {
@@ -69,32 +35,53 @@ cc.Class({
 
     setInputControl: function () {
         var self = this;
-        // 添加键盘事件监听
-        // 有按键按下时，判断是否是我们指定的方向控制键，并设置向对应方向加速
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, function (event){
-            switch(event.keyCode) {
-                case cc.KEY.a:
-                    self.accLeft = true;
-                    break;
-                case cc.KEY.d:
-                    self.accRight = true;
-                    break;
+        //add keyboard input listener to jump, turnLeft and turnRight
+        cc.eventManager.addListener({
+            event: cc.EventListener.KEYBOARD,
+            // set a flag when key pressed
+            onKeyPressed: function(keyCode, event) {
+                switch(keyCode) {
+                    case cc.KEY.a:
+                        self.accLeft = true;
+                        self.accRight = false;
+                        break;
+                    case cc.KEY.d:
+                        self.accLeft = false;
+                        self.accRight = true;
+                        break;
+                }
+            },
+            // unset a flag when key released
+            onKeyReleased: function(keyCode, event) {
+                switch(keyCode) {
+                    case cc.KEY.a:
+                        self.accLeft = false;
+                        break;
+                    case cc.KEY.d:
+                        self.accRight = false;
+                        break;
+                }
             }
-        });
-
-        // 松开按键时，停止向该方向的加速
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, function (event){
-            switch(event.keyCode) {
-                case cc.KEY.a:
-                    self.accLeft = false;
-                    break;
-                case cc.KEY.d:
-                    self.accRight = false;
-                    break;
-            }
-        });
+        }, self.node);
     },
 
+    // use this for initialization
+    onLoad: function () {
+        // 初始化跳跃动作
+        this.jumpAction = this.setJumpAction();
+        this.node.runAction(this.jumpAction);
+
+        // 加速度方向开关
+        this.accLeft = false;
+        this.accRight = false;
+        // 主角当前水平方向速度
+        this.xSpeed = 0;
+
+        // 初始化键盘输入监听
+        this.setInputControl();
+    },
+
+    // called every frame
     update: function (dt) {
         // 根据当前加速度方向每帧更新速度
         if (this.accLeft) {

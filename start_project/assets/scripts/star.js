@@ -1,13 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
 cc.Class({
     extends: cc.Component,
 
@@ -20,9 +10,12 @@ cc.Class({
             serializable: false
         }
     },
-    // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {},
+    // use this for initialization
+    onLoad: function () {
+
+    },
+
 
     getPlayerDistance: function () {
         // 根据 player 节点位置判断距离
@@ -41,10 +34,7 @@ cc.Class({
         this.node.destroy();
     },
 
-    start () {
-
-    },
-
+    // called every frame
     update: function (dt) {
         // 每帧判断和主角之间的距离是否小于收集距离
         if (this.getPlayerDistance() < this.pickRadius) {
@@ -56,6 +46,5 @@ cc.Class({
         var opacityRatio = 1 - this.game.timer/this.game.starDuration;
         var minOpacity = 50;
         this.node.opacity = minOpacity + Math.floor(opacityRatio * (255 - minOpacity));
-    }
-
+    },
 });

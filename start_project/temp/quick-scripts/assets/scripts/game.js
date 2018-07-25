@@ -1,18 +1,8 @@
-(function() {"use strict";var __module = CC_EDITOR ? module : {exports:{}};var __filename = 'preview-scripts/assets/scripts/game.js';var __require = CC_EDITOR ? function (request) {return cc.require(request, require);} : function (request) {return cc.require(request, __filename);};function __define (exports, require, module) {"use strict";
-cc._RF.push(module, 'bace3+6qitNOYWZXhaEdw8u', 'game', __filename);
-// scripts/game.js
+(function() {"use strict";var __module = CC_EDITOR ? module : {exports:{}};var __filename = 'preview-scripts/assets/scripts/Game.js';var __require = CC_EDITOR ? function (request) {return cc.require(request, require);} : function (request) {return cc.require(request, __filename);};function __define (exports, require, module) {"use strict";
+cc._RF.push(module, 'bace3+6qitNOYWZXhaEdw8u', 'Game', __filename);
+// scripts/Game.js
 
 'use strict';
-
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
     extends: cc.Component,
@@ -48,8 +38,7 @@ cc.Class({
         }
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
+    // use this for initialization
     onLoad: function onLoad() {
         // 获取地平面的 y 轴坐标
         this.groundY = this.ground.y + this.ground.height / 2;
@@ -87,9 +76,7 @@ cc.Class({
         return cc.p(randX, randY);
     },
 
-    start: function start() {},
-
-
+    // called every frame
     update: function update(dt) {
         // 每帧更新计时器，超过限度还没有生成新的星星
         // 就会调用游戏失败逻辑
@@ -125,5 +112,5 @@ cc._RF.pop();
             });
         }
         })();
-        //# sourceMappingURL=game.js.map
+        //# sourceMappingURL=Game.js.map
         

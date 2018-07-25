@@ -1,18 +1,8 @@
 "use strict";
-cc._RF.push(module, '07f21OjZ2JC1a827go6f+56', 'star');
-// scripts/star.js
+cc._RF.push(module, '07f21OjZ2JC1a827go6f+56', 'Star');
+// scripts/Star.js
 
 "use strict";
-
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
     extends: cc.Component,
@@ -26,10 +16,9 @@ cc.Class({
             serializable: false
         }
     },
-    // LIFE-CYCLE CALLBACKS:
 
+    // use this for initialization
     onLoad: function onLoad() {},
-
 
     getPlayerDistance: function getPlayerDistance() {
         // 根据 player 节点位置判断距离
@@ -48,9 +37,7 @@ cc.Class({
         this.node.destroy();
     },
 
-    start: function start() {},
-
-
+    // called every frame
     update: function update(dt) {
         // 每帧判断和主角之间的距离是否小于收集距离
         if (this.getPlayerDistance() < this.pickRadius) {
@@ -63,7 +50,6 @@ cc.Class({
         var minOpacity = 50;
         this.node.opacity = minOpacity + Math.floor(opacityRatio * (255 - minOpacity));
     }
-
 });
 
 cc._RF.pop();
